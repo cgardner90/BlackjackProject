@@ -24,7 +24,7 @@ public abstract class Hand {
 
 	@Override
 	public String toString() {
-		return "Hand [cards=" + cards + ", value=" + value + "]";
+		return "HAND :  Cards = " + cards + ", Value = " + value ;
 	}
 
 	public ArrayList<Card> getCards() {
