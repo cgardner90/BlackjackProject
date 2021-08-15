@@ -21,21 +21,12 @@ public class Dealing {
 	}
 
 	public void run() {
+
 		createGame();
 		deal();
-		
-		if(!checkForBlackJack()){
-		displayHand();
-		hitOrStay();
-		dealerTurn();
-			
-			
-			
-		}
-		}
-	
-	
-	
+
+	}
+
 
 	public void createGame() {
 		deck = new Deck();
@@ -54,7 +45,9 @@ public class Dealing {
 				p.addCard(deck.dealCard());
 			}
 		}
-
+		if (!checkForBlackJack()) {
+			displayHand();
+		}
 	}
 
 	public boolean checkForBlackJack() {
@@ -65,29 +58,31 @@ public class Dealing {
 			if (check.isBlackJack()) {
 				System.out.println(p.getHand());
 				System.out.println(p.getName() + " has Blackjack!");
-				blackjack=true;
+				blackjack = true;
 			}
 		}
 		return blackjack;
-		}
+	}
 
 	public void displayHand() {
-		System.out.println("   *** The cards have been dealt, the table is showing the following: *** \n");
+		System.out.println("   *** The cards have been dealt, your hand is:  \n");
 		System.out.println(players.get(0).getHand());
 		System.out.print("\n\tThe dealer is showing the : ");
 		System.out.println(players.get(1).getHand().getCards().get(0));
 		int value = players.get(0).getHand().handValue();
 		if (value <= 16) {
-			System.out.println("\nYou go first, would you like to hit or stay\n*NOTE: Typically, with your score of "
-					+ value + " it is\nrecommended that you hit");
+			System.out.println("\nYou go first, would you like to hit or stay\n***NOTE: Typically, with your score of "
+					+ value + " it is\nrecommended that you hit\n");
 		}
 		if (value >= 17) {
-			System.out.println("\nYou go first, would you like to hit or stay\n*NOTE: Typically with your score of "
+			System.out.println("\nYou go first, would you like to hit or stay\n***NOTE: Typically with your score of "
 					+ value + " it is\nrecommended that you stay");
 		}
+		hitOrStay();
 	}
 
 	public void hitOrStay() {
+		boolean busted = false;
 		int response;
 		do {
 			System.out.println("CHOOSE:\n1. HIT\n2.STAY");
@@ -98,13 +93,21 @@ public class Dealing {
 				players.get(0).addCard(deck.dealCard());
 				System.out.println("Your hand is now: \n");
 				System.out.println(players.get(0).getHand());
+				if (players.get(0).getHand().handValue() > 21) {
+					System.out.println("You BUSTED! Sorry, play another hand.");
+					busted = true;
+					response = 2;
+				}
 				break;
 			case 2:
 				break;
 
 			}
-		
+
 		} while (response != 2);
+		if (!busted) {
+			dealerTurn();
+		}
 
 	}
 
@@ -133,26 +136,57 @@ public class Dealing {
 			System.out.println("Dealer stays.");
 
 		}
-		if(busted) {
-		System.out.println("CONGRATULATINS! YOU WIN!");
+		if (busted) {
+			System.out.println("CONGRATULATINS! YOU WIN!");
+		} else {
+			compareHands();
 		}
-		else {compareHands();}
+	}
+
+	public void compareHands() {
+		Player p = players.get(0);
+		Player d = players.get(1);
+
+		boolean b = p.getHand().handValue() > d.getHand().handValue();
+		if (b) {
+			System.out.println("You have won!! CONGRATULATIONS");
+		} else {
+			System.out.println("OH NO! You Lost!! See you next time");
+		}
+		
+
+	}
+	public void playAgain() {
+		System.out.println("Thank you for playing our BlackJack App!");
+		System.out.println("If you would like to play again, simply type a 1 into the console. ");
+		int choice = input.nextInt();
+		if(choice == 1) {
+		run();
+		}
+		else {
+			System.out.println("GOOD BYE");
+		}
+		
+
+}
 	}
 	
-		public void compareHands() {
-		Player p =players.get(0);
-		Player d = players.get(1);
-		
-		boolean b = p.getHand().handValue() > d.getHand().handValue();
-		if(b) {
-			System.out.println("You have won!! CONGRATULATIONS");
-		}
-			else {
-				System.out.println("OH NO! You Lost!! See you next time");
-			}
-		
-		
-		}
-		
-}
-		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
