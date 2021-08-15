@@ -20,7 +20,7 @@ public class Card {
 		return this.rank + " of " + this.suit;
 	}
 	public int getValue() {
-		return this.getValue();
+		return rank.getValue();
 	}
 
 	@Override

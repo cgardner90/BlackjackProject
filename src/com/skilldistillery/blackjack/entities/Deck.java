@@ -41,6 +41,10 @@ public class Deck {
 	public Card dealCard() {
 		return cards.remove(0);
 		}
+	public Card dealCard(Hand hand) {
+		return null;
+		
+	}
 	
 	
 		}	
