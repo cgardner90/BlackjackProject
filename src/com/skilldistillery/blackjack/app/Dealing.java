@@ -27,7 +27,6 @@ public class Dealing {
 
 	}
 
-
 	public void createGame() {
 		deck = new Deck();
 		deck.shuffle();
@@ -48,18 +47,23 @@ public class Dealing {
 		if (!checkForBlackJack()) {
 			displayHand();
 		}
+		if (checkForBlackJack()) {
+			playAgain();
+		}
 	}
 
 	public boolean checkForBlackJack() {
 		boolean blackjack = false;
 		for (Player p : players) {
-			BlackJackHand check = (BlackJackHand) p.getHand();
+			if (p.getHand().handValue() == 21) {
 
-			if (check.isBlackJack()) {
-				System.out.println(p.getHand());
-				System.out.println(p.getName() + " has Blackjack!");
+				System.out.println("Well that was fast!");
 				blackjack = true;
+				break;
+
 			}
+		else if (p.getHand().handValue() != 21) {
+		}	
 		}
 		return blackjack;
 	}
@@ -108,6 +112,9 @@ public class Dealing {
 		if (!busted) {
 			dealerTurn();
 		}
+		if (busted) {
+			playAgain();
+		}
 
 	}
 
@@ -119,13 +126,14 @@ public class Dealing {
 		if (value < 17) {
 			while (value < 17) {
 				System.out.println("\nThe dealer hits...\n");
-				;
+
 				players.get(1).addCard(deck.dealCard());
+				System.out.println("\nDealer hand is now: ");
+				System.out.println(players.get(1).getHand());
+
 				value = players.get(1).getHand().handValue();
 			}
 
-			System.out.println("Dealer hand is now: ");
-			System.out.println(players.get(1).getHand());
 		}
 		if (value > 21) {
 			System.out.println("Dealer BUSTS!!");
@@ -137,7 +145,8 @@ public class Dealing {
 
 		}
 		if (busted) {
-			System.out.println("CONGRATULATINS! YOU WIN!");
+			System.out.println("CONGRATULATIONS! YOU WIN!");
+			playAgain();
 		} else {
 			compareHands();
 		}
@@ -153,40 +162,19 @@ public class Dealing {
 		} else {
 			System.out.println("OH NO! You Lost!! See you next time");
 		}
-		
 
+		playAgain();
 	}
+
 	public void playAgain() {
-		System.out.println("Thank you for playing our BlackJack App!");
-		System.out.println("If you would like to play again, simply type a 1 into the console. ");
+		System.out.println("\n\tThank you for playing our BlackJack App!");
+		System.out.println("\tIf you would like to play again, simply type a 1 into the console. ");
 		int choice = input.nextInt();
-		if(choice == 1) {
-		run();
-		}
-		else {
+		if (choice == 1) {
+			run();
+		} else {
 			System.out.println("GOOD BYE");
 		}
-		
 
-}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+}
