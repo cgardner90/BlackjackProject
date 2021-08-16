@@ -42,36 +42,27 @@ public class Dealing {
 		for (Player p : players) {
 			for (int i = 0; i < 2; i++) {
 				p.addCard(deck.dealCard());
-			}
-		}
-		if (!checkForBlackJack()) {
-			displayHand();
-		}
-		if (checkForBlackJack()) {
-			playAgain();
-		}
-	}
-
-	public boolean checkForBlackJack() {
-		boolean blackjack = false;
-		for (Player p : players) {
+				}
 			if (p.getHand().handValue() == 21) {
-
-				System.out.println("Well that was fast!");
-				blackjack = true;
-				break;
-
+				System.out.println("B L A C K J A C K !!!!");
+				System.out.println(p.getName() + " has gotten Blackjack!");
+				playAgain();
 			}
-		else if (p.getHand().handValue() != 21) {
-		}	
-		}
-		return blackjack;
-	}
+			if (p.getHand().handValue() > 21) {
+				System.out.println("Failure due to programming errors, please restart. (Two aces with 11 as value)");
+			}
+			
+			}
+		displayHand();
+			}
+	
+
+	
 
 	public void displayHand() {
 		System.out.println("   *** The cards have been dealt, your hand is:  \n");
-		System.out.println(players.get(0).getHand());
-		System.out.print("\n\tThe dealer is showing the : ");
+		System.out.println("\t"+players.get(0).getHand());
+		System.out.print("\n\n\tThe dealer is showing the : ");
 		System.out.println(players.get(1).getHand().getCards().get(0));
 		int value = players.get(0).getHand().handValue();
 		if (value <= 16) {
@@ -79,7 +70,7 @@ public class Dealing {
 					+ value + " it is\nrecommended that you hit\n");
 		}
 		if (value >= 17) {
-			System.out.println("\nYou go first, would you like to hit or stay\n***NOTE: Typically with your score of "
+			System.out.println("\nYou go first, would you like to hit or stay\n\n***NOTE: Typically with your score of "
 					+ value + " it is\nrecommended that you stay");
 		}
 		hitOrStay();
@@ -95,7 +86,7 @@ public class Dealing {
 			switch (response) {
 			case 1:
 				players.get(0).addCard(deck.dealCard());
-				System.out.println("Your hand is now: \n");
+				System.out.println("\tYour hand is now: \n");
 				System.out.println(players.get(0).getHand());
 				if (players.get(0).getHand().handValue() > 21) {
 					System.out.println("You BUSTED! Sorry, play another hand.");
@@ -158,9 +149,9 @@ public class Dealing {
 
 		boolean b = p.getHand().handValue() > d.getHand().handValue();
 		if (b) {
-			System.out.println("You have won!! CONGRATULATIONS");
+			System.out.println("\nYou have won!! CONGRATULATIONS");
 		} else {
-			System.out.println("OH NO! You Lost!! See you next time");
+			System.out.println("\nOH NO! You Lost!! See you next time");
 		}
 
 		playAgain();
@@ -168,7 +159,7 @@ public class Dealing {
 
 	public void playAgain() {
 		System.out.println("\n\tThank you for playing our BlackJack App!");
-		System.out.println("\tIf you would like to play again, simply type a 1 into the console. ");
+		System.out.println("\tIf you would like to play again, simply type a 1 into the console.\n Enter any number OTHER THAN 1 to exit the app. ");
 		int choice = input.nextInt();
 		if (choice == 1) {
 			run();
