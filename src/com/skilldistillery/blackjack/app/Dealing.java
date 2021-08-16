@@ -54,6 +54,7 @@ public class Dealing {
 			
 			}
 		displayHand();
+		
 			}
 	
 
