@@ -159,8 +159,9 @@ public class Dealing {
 	}
 
 	public void playAgain() {
-		System.out.println("\n\tThank you for playing our BlackJack App!");
-		System.out.println("\tIf you would like to play again, simply type a 1 into the console.\n Enter any number OTHER THAN 1 to exit the app. ");
+		System.out.println("**********************************************\n\n");
+		System.out.println("\n\t-Thank you for playing our BlackJack App!");
+		System.out.println("\t-If you would like to play again, simply type a 1 into the console.\n\t-Enter any number OTHER THAN 1 to exit the app. ");
 		int choice = input.nextInt();
 		if (choice == 1) {
 			run();
